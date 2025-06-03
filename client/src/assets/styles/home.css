@@ -1,0 +1,224 @@
+/* client/src/styles/Home.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+  background-color: #111;
+  color: #fff;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav a, footer a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 14px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav a::after, footer a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #f1c40f;
+  transition: width 0.4s ease-in-out;
+}
+
+nav a:hover::after, footer a:hover::after {
+  width: 100%;
+}
+
+.buttons a {
+  margin-left: 10px;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.login {
+  color: #fff;
+  position: relative;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.login::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #f1c40f;
+  transition: width 0.4s ease-in-out;
+}
+
+.login:hover::after {
+  width: 100%;
+}
+
+.register {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+.register:hover {
+  background-color: #d4ac0d;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero-text {
+  flex: 1 1 300px;
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  margin-bottom: 20px;
+}
+
+.hero-buttons a {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.browse {
+  border: 1px solid #000;
+  background-color: #fff;
+  color: #000;
+}
+
+.browse:hover {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+.get-started {
+  background-color: #00695c;
+  color: #fff;
+}
+
+.get-started:hover {
+  background-color: #004d40;
+}
+
+.hero-image {
+  flex: 1 1 300px;
+  width: 300px;
+  height: 300px;
+  background-color: #ddd;
+}
+
+/* How It Works */
+.how-it-works {
+  background-color: #005555;
+  color: white;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  margin-bottom: 10px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.step {
+  background-color: #eee;
+  color: black;
+  padding: 20px;
+  border-radius: 8px;
+  width: 25%;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.step h4 {
+  margin-top: 10px;
+}
+
+.step p {
+  font-size: 14px;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f0f0f0;
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  margin: 0 15px;
+  color: #333;
+  text-decoration: none;
+  position: relative;
+}
+
+footer a::after {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text, .hero-image {
+    max-width: 100%;
+  }
+
+  .step {
+    width: 80%;
+  }
+}
