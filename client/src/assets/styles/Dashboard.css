@@ -78,6 +78,32 @@ body {
   margin-top: auto;
 }
 
+.sidebar button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 10px 15px;
+  cursor: pointer;
+  color: white;
+  font-size: 0.95rem;
+  width: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar button.active {
+  background: var(--primary, #4ecca3);
+  color: white;
+  font-weight: bold;
+}
+
+.sidebar button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
 /* Topbar Styles */
 .topbar {
   height: 70px;

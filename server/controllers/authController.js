@@ -161,13 +161,8 @@ export const updateProfile = async (req, res) => {
 
     // Handle profile image if uploaded
     if (req.file && req.file.path) {
-      // Store only the relative path for the image
-      let relativePath = req.file.path.replace(/\\\\/g, '/').replace(/\\/g, '/');
-      const uploadsIndex = relativePath.indexOf('uploads/');
-      if (uploadsIndex !== -1) {
-        relativePath = relativePath.substring(uploadsIndex);
-      }
-      updateFields.profileImage = relativePath;
+      // Store the Cloudinary URL directly
+      updateFields.profileImage = req.file.path;
     }
 
     // Update user

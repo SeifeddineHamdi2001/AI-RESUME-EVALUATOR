@@ -10,7 +10,7 @@ export const uploadResume = async (req, res) => {
   try {
     const newResume = new Resume({
       candidate: req.user.id,
-      filePath: req.file.path,
+      filePath: req.file.path, // Cloudinary URL
       originalName: req.file.originalname,
     });
 
@@ -68,12 +68,12 @@ export const viewResume = async (req, res) => {
     }
 
     // Optional: Check if the user owns the resume or has permission
-    // This is a simple check, you might have more complex logic
     if (resume.candidate.toString() !== req.user.id) {
       return res.status(401).json({ message: 'Not authorized' });
     }
 
-    res.sendFile(resume.filePath);
+    // Instead of sending a file, redirect to the Cloudinary URL
+    return res.redirect(resume.filePath);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
   }

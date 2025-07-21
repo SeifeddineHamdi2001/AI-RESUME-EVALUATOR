@@ -68,8 +68,23 @@ const ResumeList = () => {
     setError('');
   };
 
+  const allowedTypes = [
+    'application/pdf',
+    'application/msword', // .doc
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+    'text/plain'
+  ];
+
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!allowedTypes.includes(file.type)) {
+      setError('Please select a PDF, DOC, DOCX, or TXT file');
+      setSelectedFile(null);
+      return;
+    }
+    setSelectedFile(file);
+    setError('');
   };
 
   const handleUpload = async () => {
@@ -150,7 +165,11 @@ const ResumeList = () => {
         <div className="modal-overlay" onClick={closeUploadModal}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <h3>Upload Resume</h3>
-            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} />
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx,.txt"
+              onChange={handleFileChange}
+            />
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <div className="modal-buttons">
               <button className="btn btn-primary" onClick={handleUpload}>Upload</button>

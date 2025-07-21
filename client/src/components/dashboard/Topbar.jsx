@@ -72,7 +72,7 @@ const Topbar = ({ toggleSidebar }) => {
         <div className="profile-img" onClick={toggleDropdown}>
           {user?.profileImage ? (
             <img
-              src={`http://localhost:5000/${user.profileImage.replace(/\\/g, '/')}`}
+              src={user.profileImage}
               alt="Profile"
               className="profile-img-avatar"
               style={{ width: 35, height: 35, borderRadius: '50%', objectFit: 'cover' }}

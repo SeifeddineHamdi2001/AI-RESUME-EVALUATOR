@@ -30,7 +30,8 @@ const ManageProfilePage = () => {
         email: user.email || '',
       }));
       if (user.profileImage) {
-        setPreview(`http://localhost:5000/${user.profileImage.replace(/\\/g, '/')}`);
+        // If the profileImage is a full URL (Cloudinary), use it directly
+        setPreview(user.profileImage);
       }
     }
   }, [user]);

@@ -1,6 +1,6 @@
 import express from 'express';
 import { signup, login, updateProfile, getMe, refreshToken } from '../controllers/authController.js';
-import { profileImageUpload } from '../middleware/upload.js';
+import { uploadProfileImage } from '../middleware/upload.js';
 import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
@@ -14,7 +14,7 @@ router.post('/refresh-token', refreshToken);
 
 // Profile update route
 router.put('/profile', protect, (req, res, next) => {
-  profileImageUpload(req, res, function (err) {
+  uploadProfileImage.single('profileImage')(req, res, function (err) {
     if (err) {
       return res.status(400).json({ message: err });
     }
