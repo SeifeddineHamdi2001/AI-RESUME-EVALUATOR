@@ -1,7 +1,7 @@
-import express from 'express';
-import { signup, login, updateProfile, getMe, refreshToken } from '../controllers/authController.js';
-import { uploadProfileImage } from '../middleware/upload.js';
-import { protect } from '../middleware/auth.js';
+const express = require('express');
+const { signup, login, updateProfile, getMe, refreshToken } = require('../controllers/authController.js');
+const { uploadProfileImage } = require('../middleware/upload');
+const { protect } = require('../middleware/auth.js');
 
 const router = express.Router();
 
@@ -25,4 +25,4 @@ router.put('/profile', protect, (req, res, next) => {
 // Get current user profile
 router.get('/me', protect, getMe);
 
-export default router;
+module.exports = router;
