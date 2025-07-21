@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import 'D:/ai-resume-evaluator/client/src/assets/styles/auth.css';
+import '../../assets/styles/auth.css';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {

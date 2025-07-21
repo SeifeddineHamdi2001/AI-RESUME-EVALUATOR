@@ -1,6 +1,5 @@
 import Application from '../models/Application.js';
 import Job from '../models/Job.js';
-import User from '../models/User.js';
 import Resume from '../models/Resume.js';
 import EvaluationResult from '../models/EvaluationResult.js';
 import { evaluateResumeWithAI } from '../services/aiservice.js';

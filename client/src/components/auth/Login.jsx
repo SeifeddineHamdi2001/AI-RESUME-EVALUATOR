@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../../context/AuthContext';
-import 'D:/ai-resume-evaluator/client/src/assets/styles/auth.css';
+import '../../assets/styles/auth.css';
 
 const Login = () => {
   const [role, setRole] = useState('Candidate');
