@@ -34,7 +34,7 @@ const Evaluations = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:5000/api/resumes/evaluations?sortBy=${sort.by}&sortOrder=${sort.order}`,
+          `https://ai-resume-evaluator-j4px.onrender.com/api/resumes/evaluations?sortBy=${sort.by}&sortOrder=${sort.order}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -62,7 +62,7 @@ export default function JobApplication() {
     const fetchResumes = async () => {
       try {
         // Use a route that gets resumes for the current authenticated user
-        const response = await fetch('http://localhost:5000/api/resumes/user', {
+        const response = await fetch('https://ai-resume-evaluator-j4px.onrender.com/api/resumes/user', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -115,7 +115,7 @@ export default function JobApplication() {
     formData.append('resume', uploadedFile);
 
     try {
-      const response = await fetch('http://localhost:5000/api/resumes/upload', {
+      const response = await fetch('https://ai-resume-evaluator-j4px.onrender.com/api/resumes/upload', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -152,7 +152,7 @@ export default function JobApplication() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/evaluate/resume/${selectedResume._id}/job/${job._id}`,
+        `https://ai-resume-evaluator-j4px.onrender.com/api/evaluate/resume/${selectedResume._id}/job/${job._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -186,7 +186,7 @@ export default function JobApplication() {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:5000/api/applications', {
+      const response = await fetch('https://ai-resume-evaluator-j4px.onrender.com/api/applications', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

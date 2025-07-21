@@ -14,10 +14,10 @@ const DashboardSummary = () => {
     const fetchJobsAndApplications = async () => {
       try {
         const [jobsRes, applicationsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/jobs/my-jobs", {
+          axios.get("https://ai-resume-evaluator-j4px.onrender.com/api/jobs/my-jobs", {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/applications/recruiter", {
+          axios.get("https://ai-resume-evaluator-j4px.onrender.com/api/applications/recruiter", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -50,7 +50,7 @@ const DashboardSummary = () => {
   const updateApplicantStatus = async (applicationId, newStatus) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/applications/${applicationId}/status`,
+        `https://ai-resume-evaluator-j4px.onrender.com/api/applications/${applicationId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

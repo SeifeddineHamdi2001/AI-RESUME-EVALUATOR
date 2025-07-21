@@ -18,7 +18,7 @@ const ResumeList = () => {
   const fetchResumes = async () => {
     if (!token || !user) return;
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/resumes/${user.id}`, {
+      const { data } = await axios.get(`https://ai-resume-evaluator-j4px.onrender.com/api/resumes/${user.id}`, {
         headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
@@ -35,7 +35,7 @@ const ResumeList = () => {
   const handleDelete = async (id) => {
     if (!token) return;
     try {
-      await axios.delete(`http://localhost:5000/api/resumes/${id}`, {
+      await axios.delete(`https://ai-resume-evaluator-j4px.onrender.com/api/resumes/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchResumes();
@@ -47,7 +47,7 @@ const ResumeList = () => {
   const handleView = async (id) => {
     if (!token) return;
     try {
-      const response = await axios.get(`http://localhost:5000/api/resumes/view/${id}`, {
+      const response = await axios.get(`https://ai-resume-evaluator-j4px.onrender.com/api/resumes/view/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
@@ -87,7 +87,7 @@ const ResumeList = () => {
     formData.append('resume', selectedFile);
 
     try {
-      await axios.post('http://localhost:5000/api/resumes/upload', formData, {
+      await axios.post('https://ai-resume-evaluator-j4px.onrender.com/api/resumes/upload', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

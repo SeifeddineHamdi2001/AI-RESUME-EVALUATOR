@@ -13,7 +13,7 @@ const Applications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/applications', {
+        const res = await axios.get('https://ai-resume-evaluator-j4px.onrender.com/api/applications', {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setApplications(res.data);
@@ -36,7 +36,7 @@ const Applications = () => {
         alert('No resume found for this application.');
         return;
       }
-      const response = await axios.get(`http://localhost:5000/api/resumes/view/${resumeId}`, {
+      const response = await axios.get(`https://ai-resume-evaluator-j4px.onrender.com/api/resumes/view/${resumeId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         responseType: 'blob',
       });

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://ai-resume-evaluator-j4px.onrender.com/api',
   timeout: 10000,
 });
 
@@ -39,7 +39,7 @@ api.interceptors.response.use(
           throw new Error('No token available');
         }
 
-        const refreshResponse = await axios.post('http://localhost:5000/api/auth/refresh-token', {}, {
+        const refreshResponse = await axios.post('https://ai-resume-evaluator-j4px.onrender.com/api/auth/refresh-token', {}, {
           headers: { Authorization: `Bearer ${currentToken}` }
         });
 
