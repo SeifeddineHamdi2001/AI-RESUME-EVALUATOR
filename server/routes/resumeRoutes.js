@@ -1,9 +1,8 @@
 import express from 'express';
-const router = express.Router();
 import { protect } from '../middleware/auth.js';
-import upload from '../middleware/upload.js';
+import { uploadResume } from '../middleware/upload.js';
 import {
-  uploadResume,
+  uploadResume as uploadResumeController,
   getUserResumes,
   getUserEvaluations,
   getResumeEvaluations,
@@ -11,10 +10,12 @@ import {
   viewResume,
 } from '../controllers/resumeController.js';
 
+const router = express.Router();
+
 // @desc    Upload a resume
 // @route   POST /api/resumes/upload
 // @access  Private (Candidate)
-router.post('/upload', protect, upload, uploadResume);
+router.post('/upload', protect, uploadResume.single('resume'), uploadResumeController);
 
 // @desc    Get all resumes for the current user
 // @route   GET /api/resumes/user

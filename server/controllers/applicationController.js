@@ -4,9 +4,6 @@ import Resume from '../models/Resume.js';
 import EvaluationResult from '../models/EvaluationResult.js';
 import { evaluateResumeWithAI } from '../services/aiservice.js';
 
-// @desc    Submit a new application
-// @route   POST /api/applications
-// @access  Private (Candidate)
 export const submitApplication = async (req, res) => {
   try {
     const { jobId, resumeId } = req.body;
@@ -59,9 +56,6 @@ export const submitApplication = async (req, res) => {
   }
 };
 
-// @desc    Get all applications for a candidate
-// @route   GET /api/applications
-// @access  Private (Candidate)
 export const getApplicationsByCandidate = async (req, res) => {
   try {
     const applications = await Application.find({ candidate: req.user.id })
@@ -73,9 +67,6 @@ export const getApplicationsByCandidate = async (req, res) => {
   }
 };
 
-// @desc    Get all applications for a specific job
-// @route   GET /api/applications/job/:jobId
-// @access  Private (Recruiter)
 export const getApplicationsByJob = async (req, res) => {
   try {
     const applications = await Application.find({ job: req.params.jobId }).populate('candidate', 'name email');
@@ -85,9 +76,6 @@ export const getApplicationsByJob = async (req, res) => {
   }
 };
 
-// @desc    Update application status
-// @route   PUT /api/applications/:applicationId/status
-// @access  Private (Recruiter)
 export const updateApplicationStatus = async (req, res) => {
   try {
     const { status } = req.body;
@@ -109,9 +97,6 @@ export const updateApplicationStatus = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-// @desc    Get the resume for a specific application
-// @route   GET /api/applications/:id/resume
-// @access  Private
 export const getApplicationResume = async (req, res) => {
   try {
     const application = await Application.findById(req.params.id).populate('resume');
@@ -137,9 +122,6 @@ export const getApplicationResume = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
-// @desc    Get all applications for a recruiter
-// @route   GET /api/applications/recruiter
-// @access  Private (Recruiter)
 export const getApplicationsByRecruiter = async (req, res) => {
   try {
     // Find all jobs posted by the recruiter
@@ -175,9 +157,6 @@ export const getApplicationsByRecruiter = async (req, res) => {
   }
 };
 
-// @desc    Evaluate resume against job description
-// @route   GET /api/applications/evaluate
-// @access  Private (Candidate)
 export const evaluateResume = async (req, res) => {
   try {
     const { jobId, resumeId } = req.query;

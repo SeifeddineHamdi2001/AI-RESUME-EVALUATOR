@@ -1,5 +1,4 @@
 import Resume from '../models/Resume.js';
-import User from '../models/User.js';
 import EvaluationResult from '../models/EvaluationResult.js';
 
 export const uploadResume = async (req, res) => {
@@ -30,6 +29,7 @@ export const getUserResumes = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
 export const deleteResume = async (req, res) => {
   try {
     const resume = await Resume.findById(req.params.id);

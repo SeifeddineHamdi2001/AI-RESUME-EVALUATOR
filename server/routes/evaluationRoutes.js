@@ -1,7 +1,8 @@
 import express from 'express';
-const router = express.Router();
 import { protect } from '../middleware/auth.js';
 import { evaluateResume, getEvaluationById, evaluateResumeForJob } from '../controllers/evaluationcontroller.js';
+
+const router = express.Router();
 
 // @desc    Evaluate resume against job description
 // @route   GET /api/evaluate

@@ -3,9 +3,6 @@ import Job from '../models/Job.js';
 import EvaluationResult from '../models/EvaluationResult.js';
 import { evaluateResumeWithAI } from '../services/aiservice.js';
 
-// @desc    Evaluate resume against job description
-// @route   GET /api/evaluate
-// @access  Private
 export const evaluateResume = async (req, res) => {
   try {
     const { resumeId, jobId } = req.query;
@@ -72,9 +69,6 @@ export const evaluateResume = async (req, res) => {
   }
 };
 
-// @desc    Get evaluation result by ID
-// @route   GET /api/evaluate/:id
-// @access  Private
 export const getEvaluationById = async (req, res) => {
   try {
     const evaluation = await EvaluationResult.findById(req.params.id)
@@ -96,9 +90,6 @@ export const getEvaluationById = async (req, res) => {
   }
 };
 
-// @desc    Evaluate resume for specific job (for job application flow)
-// @route   GET /api/evaluate/resume/:resumeId/job/:jobId
-// @access  Private
 export const evaluateResumeForJob = async (req, res) => {
   try {
     const { resumeId, jobId } = req.params;

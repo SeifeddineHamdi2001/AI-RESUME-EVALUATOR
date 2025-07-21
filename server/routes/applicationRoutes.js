@@ -1,5 +1,4 @@
 import express from 'express';
-const router = express.Router();
 import { protect } from '../middleware/auth.js';
 import {
   submitApplication,
@@ -9,6 +8,8 @@ import {
   getApplicationResume,
   getApplicationsByRecruiter,
 } from '../controllers/applicationController.js';
+
+const router = express.Router();
 
 // @desc    Submit a new application
 // @route   POST /api/applications
