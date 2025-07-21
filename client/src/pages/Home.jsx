@@ -1,8 +1,27 @@
 // client/src/pages/Home.jsx
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "../assets/styles/home.css"
+import heroImg from '../assets/Pictures/Pic.png';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 
 export default function Home() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  const handleBrowseJobs = () => {
+    if (!user) {
+      navigate('/login');
+    } else if (user.role === 'Candidate') {
+      navigate('/candidate-dashboard/jobs');
+    } else if (user.role === 'Recruiter') {
+      toast.error('Recruiters cannot browse jobs as candidates.');
+    } else {
+      toast.error('Unknown user role.');
+    }
+  };
+
   return (
     <>
       {/* Header */}
@@ -25,11 +44,16 @@ export default function Home() {
           <h1>Find Your Dream Job</h1>
           <p>Join us to connect with your future employers.</p>
           <div className="hero-buttons">
-            <Link to="/jobs" className="browse">Browse Jobs</Link>
+            <button type="button" className="browse" onClick={handleBrowseJobs}>Browse Jobs</button>
             <Link to="/signup" className="get-started">Get Started</Link>
           </div>
         </div>
-        <div className="hero-image"></div>
+       <div className="hero-image" style={{ backgroundImage: `url(${heroImg})` }}>
+  <img src={heroImg} alt="Hero" />
+</div>
+
+
+  
       </section>
 
       {/* How It Works */}

@@ -1,0 +1,267 @@
+/* ======================
+   SCORE INDICATORS
+   ====================== */
+
+.score.high {
+  color: #2E7D32; /* Dark green */
+  font-weight: bold;
+}
+
+.score.medium {
+  color: #F57F17; /* Amber */
+  font-weight: bold;
+}
+
+.score.low {
+  color: #C62828; /* Dark red */
+  font-weight: bold;
+}
+
+/* ======================
+   TOGGLE BUTTONS
+   ====================== */
+.dashboard-toggle-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.view-applicants {
+  background-color: #2E7D32; /* Dark green */
+  color: white;
+}
+
+.view-applicants:hover {
+  background-color: #1B5E20;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.hide-applicants {
+  background-color: #C62828; /* Dark red */
+  color: white;
+}
+
+.hide-applicants:hover {
+  background-color: #B71C1C;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* ======================
+   ACTION BUTTONS
+   ====================== */
+.action-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+  font-size: 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.view-resume-btn {
+  background-color: #FFB700; 
+  color: white;
+}
+
+.view-resume-btn:hover:not(:disabled) {
+  background-color: #f0a202
+}
+
+.view-feedback-btn {
+  background-color: #FFB700; /* Purple */
+  color: white;
+}
+
+.view-feedback-btn:hover:not(:disabled) {
+  background-color: #f0a202;
+}
+
+/* Disabled state */
+.action-btn:disabled {
+  background-color: #BDBDBD !important;
+  color: #757575 !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ======================
+   MODAL STYLES
+   ====================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  max-height: 80vh;
+  overflow-y: auto;
+  width: 700px;
+  max-width: 90%;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #616161;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #212121;
+}
+
+/* ======================
+   ACCESSIBILITY
+   ====================== */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.5);
+}
+
+/* ======================
+   CARD STYLES
+   ====================== */
+.job-summary-card {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.job-summary-card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.applicants-list {
+  margin-top: 15px;
+  padding-left: 15px;
+  border-left: 3px solid #e0e0e0;
+}
+
+.applicant-item {
+  margin-bottom: 12px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.applicant-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.applicant-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.applicant-header .item-number {
+  margin-right: 0;
+}
+
+.applicant-header p {
+  margin: 0;
+  flex: 1;
+}
+/* Decision Buttons */
+/* Decision Buttons Styles */
+.decision-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  /* Base button styles */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.decision-btn-default {
+  background-color: #e0e0e0 !important;
+  color: #616161 !important;
+}
+
+.job-summary-card .applicants-list .applicant-item .decision-buttons .accept-btn {
+  background-color: #2E7D32 !important; /* Green */
+  color: white !important;
+}
+
+.job-summary-card .applicants-list .applicant-item .decision-buttons .reject-btn {
+  background-color: #C62828 !important; /* Red */
+  color: white !important;
+}
+
+.action-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.action-btn:hover:not(:disabled) {
+  filter: brightness(90%);
+}
+
+/* ======================
+   RESPONSIVE ADJUSTMENTS
+   ====================== */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px 15px;
+  }
+  
+  .action-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .action-btn {
+    margin-right: 0;
+    width: 100%;
+  }
+}

@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useAuth } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import 'D:/ai-resume-evaluator/client/src/assets/styles/auth.css';
 
 const Login = () => {
   const [role, setRole] = useState('Candidate');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useAuth();
+  const { login, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'Candidate') {
+        navigate('/candidate-dashboard');
+      } else if (user.role === 'Recruiter') {
+        navigate('/recruiter-dashboard');
+      }
+    }
+  }, [user, navigate]);
 
   const handleRoleClick = (selectedRole) => {
     setRole(selectedRole);
@@ -24,34 +35,16 @@ const Login = () => {
       return;
     }
 
+    setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        toast.error(data.message || 'Login failed');
-        return;
-      }
-
-      login(data.user); // Save user in context/localStorage
-
+      await login(email, password);
       toast.success('Login successful! Redirecting...');
-
-      setTimeout(() => {
-        if (data.user.role === 'candidate') {
-          navigate('/candidate-dashboard');
-        } else {
-          navigate('/recruiter-dashboard');
-        }
-      }, 1000);
+      // Navigation is now handled in useEffect
     } catch (error) {
       console.error('Login error:', error);
       toast.error('An unexpected error occurred');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,7 +88,9 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">Sign In</button>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? 'Signing In...' : 'Sign In'}
+        </button>
       </form>
 
       <div className="auth-link">

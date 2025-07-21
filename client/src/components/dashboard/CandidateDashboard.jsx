@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
@@ -8,19 +8,26 @@ import Evaluations from "./Evaluations";
 import Recommendations from "./Recommendations";
 import Applications from "./Applications";
 import Settings from "./Settings";
-
-import "d:/ai-resume-evaluator/client/src/assets/styles/Dashboard.css";
-
 import BrowseJobs from "./BrowseJobs";
+
+import "../../assets/styles/Dashboard.css"; // Fixed import path
+import { AuthContext } from "../../context/AuthContext";
 
 const CandidateDashboard = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const location = useLocation();
+  const { user, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate("/");
+    }
+  }, [user, loading, navigate]);
 
   const toggleSidebar = () => setSidebarVisible(!isSidebarVisible);
   const closeSidebar = () => setSidebarVisible(false);
 
-  // Determine title dynamically (optional improvement)
   const routeTitles = {
     "/candidate-dashboard": "Candidate Dashboard",
     "/candidate-dashboard/jobs": "Job Browser",
@@ -30,13 +37,25 @@ const CandidateDashboard = () => {
 
   return (
     <div className="candidate-dashboard-wrapper">
-      <Sidebar visible={isSidebarVisible} onClose={closeSidebar} role="Candidate" />
-      <Topbar toggleSidebar={toggleSidebar} title={routeTitles[location.pathname] || "Candidate Dashboard"} />
+      <Sidebar
+        visible={isSidebarVisible}
+        onClose={closeSidebar}
+        role="Candidate"
+      />
+      <Topbar
+        toggleSidebar={toggleSidebar}
+        title={routeTitles[location.pathname] || "Candidate Dashboard"}
+      />
 
-      <main className={`candidate-main ${isSidebarVisible ? "with-sidebar" : "full"}`} id="mainContent">
+      <main
+        className={`dashboard-layout ${
+          isSidebarVisible ? "with-sidebar" : "full"
+        }`}
+        id="mainContent"
+      >
         <Routes>
           <Route
-            path="/"
+            index
             element={
               <>
                 <section className="candidate-dashboard-section">
@@ -55,7 +74,7 @@ const CandidateDashboard = () => {
             }
           />
           <Route
-            path="/jobs"
+            path="jobs"
             element={
               <section className="candidate-dashboard-section">
                 <h2>Browse Jobs</h2>
@@ -64,7 +83,7 @@ const CandidateDashboard = () => {
             }
           />
           <Route
-            path="/applications"
+            path="applications"
             element={
               <section className="candidate-dashboard-section">
                 <h2>Your Applications</h2>
@@ -73,7 +92,7 @@ const CandidateDashboard = () => {
             }
           />
           <Route
-            path="/settings"
+            path="settings"
             element={
               <section className="candidate-dashboard-section">
                 <h2>Settings</h2>

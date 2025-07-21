@@ -1,13 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { FaBars } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const Topbar = ({ toggleSidebar }) => {
-  const { user, logout } = useAuth();
+  const { user, logout } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const dropdownRef = useRef(null);
 
   const routeTitles = {
@@ -29,14 +30,23 @@ const Topbar = ({ toggleSidebar }) => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const handleProfileClick = () => {
+  if (user?.role === "Recruiter") {
+    navigate("/recruiter-dashboard/profile");
+  } else {
     navigate("/candidate-dashboard/profile");
-    setDropdownOpen(false);
-  };
+  }
+  setDropdownOpen(false);
+};
+
 
   const handleLogoutClick = () => {
     logout();
     setDropdownOpen(false);
-    navigate("/")
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      navigate("/");
+    }, 2500);
   };
 
   // Close dropdown when clicking outside
@@ -60,7 +70,16 @@ const Topbar = ({ toggleSidebar }) => {
 
       <div className="profile" ref={dropdownRef}>
         <div className="profile-img" onClick={toggleDropdown}>
-          {user?.name?.charAt(0).toUpperCase() || "?"}
+          {user?.profileImage ? (
+            <img
+              src={`http://localhost:5000/${user.profileImage.replace(/\\/g, '/')}`}
+              alt="Profile"
+              className="profile-img-avatar"
+              style={{ width: 35, height: 35, borderRadius: '50%', objectFit: 'cover' }}
+            />
+          ) : (
+            user?.name?.charAt(0).toUpperCase() || "?"
+          )}
         </div>
         <span>Welcome, {user?.name || "Guest"}</span>
 
@@ -71,6 +90,10 @@ const Topbar = ({ toggleSidebar }) => {
           </div>
         )}
       </div>
+
+      {showToast && (
+        <div className="logout-toast">You have been logged out.</div>
+      )}
 
       <style>{`
   .topbar {
@@ -156,6 +179,33 @@ const Topbar = ({ toggleSidebar }) => {
 
   .dropdown button:hover {
     background-color: var(--primary);
+  }
+  .logout-toast {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: var(--primary);
+    color: white;
+    padding: 14px 28px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(21, 96, 100, 0.15);
+    z-index: 2000;
+    animation: fadeInOut 2.5s;
+  }
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+  .profile-img-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
   }
 `}</style>
 

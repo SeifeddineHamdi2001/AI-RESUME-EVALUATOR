@@ -128,14 +128,9 @@ body {
 }
 
 /* Main Content Styles */
-.main {
-  margin-left: 250px;
+.dashboard-layout {
   padding: 90px 30px 30px;
   transition: var(--transition);
-}
-
-.main.full {
-  margin-left: 0;
 }
 
 .section-header {
@@ -197,6 +192,30 @@ body {
   display: flex;
   gap: 10px;
 }
+
+/* Number Badge Styles */
+.card-with-badge {
+  position: relative;
+}
+
+.number-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 2;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+/* Remove old numbering styles */
+.item-number { display: none; }
+.application-header, .job-header, .applicant-header, .resume-header { display: unset; gap: unset; align-items: unset; }
 
 /* Score Styles */
 .score {
@@ -290,24 +309,93 @@ body {
     gap: 10px;
   }
 }
-.candidate-main {
-  padding: 90px 30px 30px;
-  transition: var(--transition);
+.dashboard-layout.with-sidebar {
+  margin-left: 250px;
 }
 
-/* Default: with sidebar visible */
-.candidate-main.with-sidebar {
-  margin-left: 250px; /* same as your sidebar width */
-}
-
-/* Sidebar hidden or on mobile */
-.candidate-main.full {
+.dashboard-layout.full {
   margin-left: 0;
+}
+.applicant-toggle {
+  cursor: pointer;
+  user-select: none;
+  color: var(--primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+}
+
+.applicant-toggle::after {
+  content: "▼";
+  font-size: 0.75rem;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
+
+.applicant-toggle.open::after {
+  transform: rotate(180deg);
 }
 
 /* On small screens, don't shift content */
 @media (max-width: 768px) {
-  .candidate-main.with-sidebar {
-    margin-left: 0;
+  .dashboard-layout.with-sidebar {
+      margin-left: 0;
+    }
+}
+
+/* Pagination Controls Styles */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 24px 0 8px 0;
+  flex-wrap: wrap;
+}
+.pagination-controls button {
+  background: #fff;
+  color: var(--primary, #156064);
+  border: 1.5px solid var(--primary, #156064);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  box-shadow: 0 1px 4px rgba(21, 96, 100, 0.07);
+  outline: none;
+  margin: 0 2px;
+}
+.pagination-controls button:hover:not(:disabled),
+.pagination-controls button:focus:not(:disabled) {
+  background: var(--primary, #156064);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(21, 96, 100, 0.13);
+}
+.pagination-controls button.active {
+  background: var(--primary, #156064);
+  color: #fff;
+  border-color: var(--primary, #156064);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(21, 96, 100, 0.18);
+}
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f3f3f3;
+  color: #aaa;
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+@media (max-width: 600px) {
+  .pagination-controls button {
+    padding: 7px 10px;
+    font-size: 0.95rem;
+  }
+  .pagination-controls {
+    gap: 3px;
   }
 }

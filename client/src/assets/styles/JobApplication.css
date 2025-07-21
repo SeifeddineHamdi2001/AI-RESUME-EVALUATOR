@@ -1,184 +1,545 @@
-/* Buttons */
-.btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  min-width: 100px;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+/* Import the design system variables */
+@import url('./Dashboard.css');
 
-.btn-primary {
-  background-color: #2563eb;
-  border: none;
-  color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background-color: #1d4ed8;
-}
-
-.btn-primary:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 1.5px solid #6b7280;
-  color: #6b7280;
-}
-
-.btn-outline:hover:not(:disabled) {
-  background-color: #f3f4f6;
-}
-
-.btn-outline:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal {
-  background: white;
-  padding: 1.5rem 2rem;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  position: relative;
-}
-
-.modal-buttons {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-}
-
-/* General card styles */
-.card {
-  background: #fff;
-  border-radius: 10px;
-  padding: 1.5rem 2rem;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
-  max-width: 700px;
-  margin: 1rem auto;
-}
-
-/* Container */
 .job-application-container {
-  padding: 1rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #111827;
-  background-color: #f9fafb;
-  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Headings */
-h2, h3, h4 {
-  color: #1e293b;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
+.job-application-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+  padding: 30px;
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(21, 96, 100, 0.2);
 }
 
-/* Paragraph styling */
-p {
-  line-height: 1.5;
-  margin: 0.25rem 0 1rem 0;
-  color: #4b5563;
-}
-
-/* Lists */
-ul {
-  list-style: inside disc;
-  margin: 0 0 1rem 0;
-  color: #374151;
-}
-
-/* Error message */
-.error-message {
-  background-color: #fee2e2;
-  color: #b91c1c;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #fca5a5;
-  max-width: 700px;
-  margin: 1rem auto 0 auto;
+.job-application-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
   font-weight: 600;
 }
 
-/* File input */
-input[type="file"] {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1.5px solid #cbd5e1;
-  cursor: pointer;
-  box-sizing: border-box;
+.job-application-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
 }
 
-/* Upload New button styled like Upload */
-.upload-new-btn {
-  margin-top: 1rem;
+/* Resume Selection Step */
+.resume-selection {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  transition: var(--transition);
 }
 
-/* Confirm Application button */
-.confirm-btn {
-  max-width: 700px;
-  margin: 1.5rem auto;
-  display: block;
-  width: 100%;
-  text-align: center;
+.resume-selection:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-.choose-existing-btn {
-  margin-top: 1rem;
+
+.resume-selection h2 {
+  color: var(--dark);
+  margin-bottom: 10px;
+  font-size: 1.8rem;
 }
-.button-container {
-  max-width: 700px;   /* same width as .card */
-  margin: 1.5rem auto; /* center horizontally with vertical spacing */
+
+.resume-selection > p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.resume-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.existing-resumes, .upload-resume {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: var(--border-radius);
+  border: 2px solid #e9ecef;
+  transition: var(--transition);
+}
+
+.existing-resumes:hover, .upload-resume:hover {
+  border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(21, 96, 100, 0.1);
+}
+
+.existing-resumes h3, .upload-resume h3 {
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.resume-list {
   display: flex;
-  gap: 1rem;          /* space between buttons */
-  justify-content: center; /* center buttons horizontally */
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0 2rem;    /* same horizontal padding as .card for alignment */
+  flex-direction: column;
+  gap: 15px;
 }
 
-.button-container .btn {
-  flex: 1;            /* each button takes equal space */
+.resume-item {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: 2px solid #e9ecef;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.resume-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 96, 100, 0.15);
+}
+
+.resume-item.selected {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+}
+
+.resume-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.resume-header .item-number {
+  margin-right: 0;
+}
+
+.resume-item h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.resume-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.file-input {
+  width: 100%;
+  padding: 15px;
+  border: 2px dashed #dee2e6;
+  border-radius: var(--border-radius);
+  background: white;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.file-input:hover {
+  border-color: var(--primary);
+  background: rgba(21, 96, 100, 0.02);
+}
+
+.upload-preview {
+  margin-top: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: var(--border-radius);
+  border: 1px solid #dee2e6;
+}
+
+.upload-preview p {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+/* Evaluation Results */
+.evaluation-results {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  transition: var(--transition);
+}
+
+.evaluation-results:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.evaluation-results h2 {
+  color: var(--dark);
+  margin-bottom: 25px;
+  font-size: 1.8rem;
   text-align: center;
 }
 
-/* Confirm button already styled by .confirm-btn, just ensure width 100% */
-.confirm-btn {
-  width: 100%;
+.evaluation-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Cancel button reusing btn-primary styles */
-.cancel-btn {
+.score-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.score-section h3 {
+  font-size: 2rem;
+  color: var(--dark);
+  margin-bottom: 15px;
+}
+
+.score-bar {
   width: 100%;
-  background-color: #2563eb; /* same as btn-primary */
-  border: none;
+  height: 20px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+  max-width: 400px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success), #20c997);
+  transition: width 0.8s ease;
+  box-shadow: 0 2px 4px rgba(0, 184, 148, 0.3);
+}
+
+.feedback-section {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+  border: 1px solid #e9ecef;
+}
+
+.feedback-section h3 {
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+}
+
+.feedback-item {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.feedback-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.feedback-item h4 {
+  color: var(--dark);
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.feedback-item p {
+  margin: 5px 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.ai-feedback {
+  background: white;
+  padding: 25px;
+  border-radius: var(--border-radius);
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ai-feedback h4 {
+  color: var(--dark);
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.ai-feedback p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.ai-feedback ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.ai-feedback li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Extracted Resume Information */
+.extracted-resume {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: var(--border-radius);
+  margin-top: 30px;
+  border: 1px solid #e9ecef;
+}
+
+.extracted-resume h4 {
+  color: var(--dark);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+.resume-section {
+  background: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.resume-section h5 {
+  color: var(--primary);
+  margin: 0 0 15px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.resume-section p {
+  margin: 8px 0;
+  line-height: 1.5;
+  color: #333;
+}
+
+.resume-section ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.resume-section li {
+  margin-bottom: 5px;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Skills Styling */
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.skill-tag {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(21, 96, 100, 0.2);
+  transition: all 0.3s ease;
+  cursor: default;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.cancel-btn:hover:not(:disabled) {
-  background-color: #1d4ed8;
+.skill-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 96, 100, 0.3);
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+
+.education-item, .experience-item, .project-item {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+  border-left: 3px solid var(--accent);
+}
+
+.education-item p, .experience-item p, .project-item p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.education-item p:last-child, .experience-item p:last-child, .project-item p:last-child {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.resume-section a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.resume-section a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+.confirmation {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.success-message {
+  color: var(--success);
+}
+
+.success-message h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: var(--success);
+}
+
+.success-message p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.button-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--secondary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(21, 96, 100, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancel-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-application-container {
+    padding: 15px;
+  }
+  
+  .job-application-header {
+    padding: 20px;
+  }
+  
+  .job-application-header h1 {
+    font-size: 2rem;
+  }
+  
+  .resume-options {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .evaluation-results,
+  .resume-selection {
+    padding: 20px;
+  }
+  
+  .score-section h3 {
+    font-size: 1.5rem;
+  }
+  
+  .feedback-item {
+    padding: 15px;
+  }
+  
+  .job-application-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .resume-options {
+    gap: 15px;
+  }
+  
+  .existing-resumes, .upload-resume {
+    padding: 20px;
+  }
+  
+  .skills-container {
+    gap: 8px;
+  }
+  
+  .skill-tag {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
 }

@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['Candidate', 'Recruiter'] },
   createdAt: { type: Date, default: Date.now },
   lastActive: { type: Date, default: Date.now },
+  profileImage: { type: String },
 });
 
 const User = mongoose.model('User', userSchema);

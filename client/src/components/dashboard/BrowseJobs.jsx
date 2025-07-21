@@ -1,47 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaSearch, FaFilter, FaExternalLinkAlt } from 'react-icons/fa';
 import '../../assets/styles/BrowseJobs.css';
-import { Navigate,useNavigate } from 'react-router-dom';
-
-const mockJobs = [
-  {
-    id: 1,
-    title: 'Frontend Developer - React',
-    company: 'TechVision',
-    location: 'Remote',
-    description: 'We are looking for a React developer to build scalable web applications.',
-    skills: ['React', 'JavaScript', 'CSS', 'REST API']
-  },
-  {
-    id: 2,
-    title: 'Data Scientist - Entry Level',
-    company: 'DataX Inc.',
-    location: 'Tunis, Tunisia',
-    description: 'Analyze large datasets to uncover patterns and improve products.',
-    skills: ['Python', 'Machine Learning', 'SQL']
-  },
-  {
-    id: 3,
-    title: 'DevOps Engineer',
-    company: 'CloudOps',
-    location: 'Hybrid - Paris',
-    description: 'Support CI/CD infrastructure and improve automation pipelines.',
-    skills: ['Docker', 'Kubernetes', 'CI/CD', 'AWS']
-  }
-];
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 const BrowseJobs = () => {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedJob, setSelectedJob] = useState(null);
+  const [sort, setSort] = useState({ by: 'createdAt', order: 'desc' });
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
 
-  const filteredJobs = mockJobs.filter((job) =>
+  useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/jobs?sortBy=${sort.by}&sortOrder=${sort.order}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setJobs(data);
+        } else {
+          console.error('Failed to fetch jobs');
+        }
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (token) {
+      fetchJobs();
+    }
+  }, [token, sort]);
+
+  const handleSort = (by, order) => {
+    setSort({ by, order });
+    setIsFilterOpen(false);
+  };
+
+  const filteredJobs = jobs.filter((job) =>
     job.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const ITEMS_PER_PAGE = 4;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
+  const paginatedJobs = filteredJobs.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
   return (
-    <div className="browse-jobs-split bordered-layout">
-      <div className="left-column bordered">
+    <div className="browse-jobs-split">
+      <div className="left-column">
         <div className="search-filter-bar">
           <div className="search-box">
             <FaSearch className="icon" />
@@ -52,19 +71,38 @@ const BrowseJobs = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button className="filter-btn">
-            <FaFilter /> Filters
-          </button>
+          <div className="filter-container">
+            <button
+              className="filter-btn"
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+            >
+              <FaFilter /> Filters
+            </button>
+            {isFilterOpen && (
+              <div className="filter-dropdown">
+                <button onClick={() => handleSort('createdAt', 'desc')}>
+                  Latest to Oldest
+                </button>
+                <button onClick={() => handleSort('createdAt', 'asc')}>
+                  Oldest to Latest
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="job-list">
-          {filteredJobs.length === 0 ? (
+          {loading ? (
+            <p>Loading jobs...</p>
+          ) : filteredJobs.length === 0 ? (
             <p className="no-results">No jobs found.</p>
           ) : (
-            filteredJobs.map((job) => (
+            paginatedJobs.map((job) => (
               <div
-                className={`job-card ${selectedJob?.id === job.id ? 'selected' : ''}`}
-                key={job.id}
+                className={`job-card ${
+                  selectedJob?._id === job._id ? 'selected' : ''
+                }`}
+                key={job._id}
                 onClick={() => setSelectedJob(job)}
               >
                 <div className="job-info">
@@ -77,22 +115,46 @@ const BrowseJobs = () => {
             ))
           )}
         </div>
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="pagination-controls">
+            <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>&laquo;</button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                className={currentPage === i + 1 ? 'active' : ''}
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>&raquo;</button>
+          </div>
+        )}
       </div>
 
-      <div className="right-column bordered">
+      <div className="right-column">
         {selectedJob ? (
           <div className="job-detail">
             <h2>{selectedJob.title}</h2>
-            <p className="job-meta">{selectedJob.company} • {selectedJob.location}</p>
+            <p className="job-meta">
+              {selectedJob.company} • {selectedJob.location}
+            </p>
             <p className="job-description">{selectedJob.description}</p>
             <h4>Required Skills:</h4>
             <ul className="job-skills">
-              {selectedJob.skills.map((skill, index) => (
+              {selectedJob.requiredSkills.map((skill, index) => (
                 <li key={index}>{skill}</li>
               ))}
             </ul>
-            <button onClick={() => navigate('/candidate-dashboard/jobs/jobapplication')}
-             className="apply-btn">
+            <button
+              onClick={() =>
+                navigate('/candidate-dashboard/jobs/jobapplication', { 
+                  state: { job: selectedJob } 
+                })
+              }
+              className="apply-btn"
+            >
               Apply <FaExternalLinkAlt size={12} />
             </button>
           </div>

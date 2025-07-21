@@ -123,32 +123,109 @@ nav a:hover::after, footer a:hover::after {
   display: inline-block;
 }
 
-.browse {
-  border: 1px solid #000;
-  background-color: #fff;
-  color: #000;
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
 }
 
-.browse:hover {
-  background-color: #f1f1f1;
-  color: #000;
+.hero-buttons .browse,
+.hero-buttons button.browse,
+.hero-buttons .get-started {
+  flex: 1 1 0;
+  min-width: 120px;
+  max-width: 180px;
+  text-align: center;
+  /* Remove width property if present */
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, box-shadow 0.2s, color 0.2s, border-color 0.2s;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  font-family: inherit;
+  margin-right: 0;
 }
 
-.get-started {
-  background-color: #00695c;
+.hero-buttons .browse,
+.hero-buttons button.browse {
+  background: #fff;
+  color: #00695c;
+  border: 2px solid #00695c;
+}
+
+.hero-buttons .browse:hover,
+.hero-buttons button.browse:hover,
+.hero-buttons .browse:focus,
+.hero-buttons button.browse:focus {
+  background: #00695c;
   color: #fff;
+  outline: none;
+  border-color: #004d40;
+  box-shadow: 0 4px 16px rgba(0,105,92,0.15);
 }
 
-.get-started:hover {
-  background-color: #004d40;
+.hero-buttons .get-started {
+  background: #00695c;
+  color: #fff;
+  border: 2px solid #00695c;
+}
+
+.hero-buttons .get-started:hover,
+.hero-buttons .get-started:focus {
+  background: #fff;
+  color: #00695c;
+  border-color: #00695c;
+  outline: none;
+  box-shadow: 0 4px 16px rgba(0,105,92,0.15);
 }
 
 .hero-image {
-  flex: 1 1 300px;
+  position: relative;
   width: 300px;
   height: 300px;
-  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
 }
+
+/* Blurred background using ::before */
+.hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* top:0; bottom:0; left:0; right:0 */
+  background-image: inherit; /* inherit background image from parent */
+  background-size: cover;
+  background-position: center;
+  filter: blur(12px);
+  z-index: 0;
+}
+
+/* Clear background on main container */
+.hero-image {
+  background: none;
+}
+
+/* Foreground image */
+.hero-image img {
+  position: relative;
+  width: auto;
+  height: 90%; /* adjust */
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  z-index: 1;
+  display: block;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+
 
 /* How It Works */
 .how-it-works {
@@ -206,6 +283,79 @@ footer a {
 
 footer a::after {
   background-color: #333;
+}
+
+.legal-page, .help-page, .about-page, .contact-page {
+  background: #fff;
+  max-width: 700px;
+  margin: 40px auto 60px auto;
+  padding: 32px 28px 40px 28px;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+  font-size: 1.08em;
+  color: #222;
+}
+
+.legal-page h1, .help-page h1, .about-page h1, .contact-page h1 {
+  font-size: 2.1em;
+  margin-bottom: 18px;
+  color: #00695c;
+}
+
+.legal-page h2, .help-page h2, .about-page h2, .contact-page h2 {
+  font-size: 1.3em;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.legal-page ul, .help-page ul, .about-page ul, .contact-page ul {
+  margin: 12px 0 18px 24px;
+  padding-left: 18px;
+}
+
+.legal-page li, .help-page li, .about-page li, .contact-page li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.legal-page p, .help-page p, .about-page p, .contact-page p {
+  margin-bottom: 14px;
+  line-height: 1.7;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 1em;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.contact-form button[type="submit"] {
+  background: #00695c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+
+.contact-form button[type="submit"]:hover {
+  background: #004d40;
 }
 
 @media (max-width: 768px) {

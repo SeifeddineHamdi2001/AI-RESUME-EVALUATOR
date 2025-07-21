@@ -1,88 +1,174 @@
-/* Applications.css */
+@import url('./Dashboard.css');
 
 .applications-container {
   padding: 30px;
-  background-color: #f8f9fa;
+  background-color: var(--light);
   min-height: 100vh;
 }
 
 .applications-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
-  margin-bottom: 25px;
-  color: #156064;
+  margin-bottom: 30px;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.applications-filters {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: var(--border-radius);
+  padding: 10px 16px;
+  gap: 8px;
+  min-width: 260px;
+  flex: 1;
+}
+
+.search-icon {
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: var(--dark);
+  width: 100%;
+}
+
+.status-select {
+  padding: 10px 16px;
+  border-radius: var(--border-radius);
+  border: 1px solid #e9ecef;
+  font-size: 1rem;
+  color: var(--dark);
+  background: #fff;
+  min-width: 140px;
+  transition: var(--transition);
+}
+
+.status-select:focus {
+  border-color: var(--primary);
+  outline: none;
 }
 
 .application-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .application-card {
   background-color: #fff;
-  padding: 20px 25px;
-  border-radius: 12px;
+  padding: 28px 32px;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: 0.3s ease;
-  border-left: 5px solid #156064;
-  gap: 20px;
+  border-left: 5px solid var(--primary);
+  gap: 32px;
+  transition: var(--transition);
+  position: relative;
 }
 
 .application-card:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(21, 96, 100, 0.08);
+  border-left: 5px solid var(--secondary);
+  transform: translateY(-2px) scale(1.01);
 }
 
 .application-info {
-  flex: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.application-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.application-header .item-number {
+  margin-right: 0;
 }
 
 .application-title {
+  margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 6px;
-  color: #333;
+  color: var(--dark);
+  flex: 1;
 }
 
 .application-company {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .application-meta {
-  font-size: 0.85rem;
-  color: #777;
+  font-size: 0.92rem;
+  color: #888;
 }
 
+/* Improved Status Badge */
 .status-badge {
-  padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  display: inline-block;
-  min-width: 90px;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  min-width: unset;
+  max-width: fit-content;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  box-shadow: 0 2px 8px rgba(21, 96, 100, 0.10);
+  border-width: 2px;
+  border-style: solid;
+  transition: background 0.18s, color 0.18s, border 0.18s;
 }
-
-/* Status Variants */
-.status-in-review {
-  background-color: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
+.status-submitted {
+  background: #fffbe6;
+  color: #b8860b;
+  border-color: #ffc107;
 }
-
-.status-accepted {
-  background-color: rgba(40, 167, 69, 0.15);
-  color: #28a745;
+.status-under-review {
+  background: #e6f7fa;
+  color: var(--primary);
+  border-color: var(--primary);
 }
-
-.status-refused {
-  background-color: rgba(220, 53, 69, 0.15);
-  color: #dc3545;
+.status-interviewing {
+  background: #e6f0ff;
+  color: #007bff;
+  border-color: #007bff;
+}
+.status-accepted, .status-offered {
+  background: #e6f9ed;
+  color: var(--success);
+  border-color: var(--success);
+}
+.status-rejected {
+  background: #ffeaea;
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .resume-section {
@@ -90,44 +176,123 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 160px;
 }
 
 .resume-label {
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: #888;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  font-weight: 500;
 }
 
 .resume-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  background-color: #156064;
+  padding: 10px 18px;
+  background-color: var(--primary);
   color: white;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
   font-weight: 500;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: var(--transition);
+  border: none;
+  outline: none;
+  margin-top: 2px;
+  box-shadow: 0 1px 4px rgba(21, 96, 100, 0.07);
 }
 
 .resume-link:hover {
-  background-color: #104c4d;
+  background-color: var(--secondary);
+  color: #fff;
+  transform: translateY(-1px) scale(1.03);
 }
 
 .resume-icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
+/* Improved View Resume Button */
+.btn-outline, .applicant-actions .btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  font-size: 0.98rem;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(21, 96, 100, 0.07);
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.btn-outline:hover, .applicant-actions .btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  text-decoration: none;
+}
+
+/* Empty state */
+.application-list:empty::after {
+  content: "No applications found.";
+  display: block;
+  text-align: center;
+  color: #888;
+  font-size: 1.1rem;
+  font-style: italic;
+  padding: 60px 0;
+  background: #f8f9fa;
+  border-radius: var(--border-radius);
+  border: 2px dashed #e9ecef;
+}
+
+/* Loading state */
+.application-list.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
   .application-card {
     flex-direction: column;
     align-items: flex-start;
+    gap: 18px;
+    padding: 22px 14px;
   }
-
   .resume-section {
     margin-top: 10px;
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .applications-container {
+    padding: 10px;
+  }
+  .applications-title {
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+  }
+  .applications-filters {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .application-card {
+    padding: 12px 6px;
+    gap: 10px;
+  }
+  .application-title {
+    font-size: 1.05rem;
+  }
+  .resume-link {
+    font-size: 0.95rem;
+    padding: 8px 12px;
   }
 }
