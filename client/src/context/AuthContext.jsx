@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       const currentToken = localStorage.getItem('token');
       if (!currentToken) return false;
 
-      const response = await axios.post('http://localhost:5000/api/auth/refresh-token', {}, {
+      const response = await axios.post('https://ai-resume-evaluator-j4px.onrender.com/api/auth/refresh-token', {}, {
         headers: { Authorization: `Bearer ${currentToken}` }
       });
 
