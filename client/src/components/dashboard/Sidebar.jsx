@@ -80,66 +80,6 @@ const Sidebar = ({ visible, onClose }) => {
         <FaCog />
         <span>Settings</span>
       </button>
-            <style>
-{`
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 250px;
-    background-color: var(--dark); /* Adjust as needed */
-    padding: 20px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-sizing: border-box;
-    transition: transform 0.3s ease;
-    transform: translateX(-100%);
-  }
-
-  .sidebar.visible {
-    transform: translateX(0);
-  }
-
-  .sidebar button {
-    all: unset;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 10px 15px;
-    cursor: pointer;
-    color: white;
-    font-size: 0.95rem;
-    width: calc(100% - 30px); /* Prevent overflow */
-    border-radius: 8px;
-    box-sizing: border-box;
-  }
-
-  .sidebar button.active {
-    background: var(--primary, #4ecca3);
-    color: white;
-    font-weight: bold;
-  }
-
-  .sidebar button:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 2rem;
-    padding: 0 15px;
-  }
-`}
-</style>
     </aside>
   );
 };
