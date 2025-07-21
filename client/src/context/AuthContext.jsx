@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
           // Check if token is expired and refresh if needed
           const validToken = await getValidToken();
           if (validToken) {
-            const res = await axios.get('http://localhost:5000/api/auth/me', {
+            const res = await axios.get('https://ai-resume-evaluator-j4px.onrender.com/api/auth/me', {
               headers: { Authorization: `Bearer ${validToken}` },
             });
             setUser(res.data);
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post('https://ai-resume-evaluator-j4px.onrender.com/api/auth/login', { email, password });
     localStorage.setItem('token', data.token);
     setToken(data.token);
     const decodedUser = JSON.parse(atob(data.token.split('.')[1]));
