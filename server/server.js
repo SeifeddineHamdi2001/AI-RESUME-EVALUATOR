@@ -19,7 +19,7 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://ai-resume-evaluator-six.vercel.app',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
