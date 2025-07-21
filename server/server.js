@@ -8,7 +8,7 @@ import authRoutes from './routes/authRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
 import resumeRoutes from './routes/resumeRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
-import evaluationRoutes from './routes/evaluationroutes.js';
+import evaluationRoutes from './routes/evaluationRoutes.js';
 import connectDB from './config/database.js';
 
 const __filename = fileURLToPath(import.meta.url);
