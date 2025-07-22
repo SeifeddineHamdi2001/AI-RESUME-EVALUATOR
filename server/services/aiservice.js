@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import axios from 'axios';
 import FormData from 'form-data';
+import os from 'os';
+import path from 'path';
 
 // Load environment variables
 dotenv.config();
@@ -17,6 +19,7 @@ const FASTAPI_URL = process.env.FASTAPI_URL || 'https://saif12-mistral-7b-gguf-s
  * @returns {Object} - Evaluation results including score and suggestions
  */
 export const evaluateResumeWithAI = async (job, resume) => {
+  let tempFilePath = null;
   try {
     // Read the resume file content
     let resumePath;
@@ -24,8 +27,22 @@ export const evaluateResumeWithAI = async (job, resume) => {
       const filePath = resume.filePath || resume.path;
       if (!filePath) throw new Error('Resume file path is missing');
       resumePath = filePath;
-      if (!fs.existsSync(resumePath)) {
-        throw new Error('Resume file not found');
+      let isUrl = /^https?:\/\//i.test(resumePath);
+      if (isUrl) {
+        // Download the file to a temp location
+        const response = await axios.get(resumePath, { responseType: 'stream' });
+        tempFilePath = path.join(os.tmpdir(), `resume_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`);
+        const writer = fs.createWriteStream(tempFilePath);
+        await new Promise((resolve, reject) => {
+          response.data.pipe(writer);
+          writer.on('finish', resolve);
+          writer.on('error', reject);
+        });
+        resumePath = tempFilePath;
+      } else {
+        if (!fs.existsSync(resumePath)) {
+          throw new Error('Resume file not found');
+        }
       }
       console.log('Resume path being sent to FastAPI:', resumePath);
     } catch (fileError) {
@@ -61,5 +78,10 @@ export const evaluateResumeWithAI = async (job, resume) => {
   } catch (error) {
     console.error('AI evaluation error:', error);
     throw new Error('Failed to evaluate resume: ' + error.message);
+  } finally {
+    // Clean up temp file if it was used
+    if (tempFilePath) {
+      try { fs.unlinkSync(tempFilePath); } catch (e) { /* ignore */ }
+    }
   }
 };

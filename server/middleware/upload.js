@@ -8,6 +8,7 @@ const resumeStorage = new CloudinaryStorage({
     folder: 'resumes',
     resource_type: 'raw', // for PDFs and other non-image files
     allowed_formats: ['pdf', 'doc', 'docx', 'txt'],
+    type: 'upload', // ensure public access
   },
 });
 
@@ -17,6 +18,7 @@ const profileImageStorage = new CloudinaryStorage({
     folder: 'profile-images',
     resource_type: 'image',
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif'],
+    type: 'upload', // ensure public access
   },
 });
 
