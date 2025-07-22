@@ -19,7 +19,14 @@ connectDB();
 
 const app = express();
 const corsOptions = {
-  origin: 'https://ai-resume-evaluator-ayqapxwdp-seifeddinehamdi2001s-projects.vercel.app', // update to your actual frontend URL
+  origin: function (origin, callback) {
+    // Allow localhost for local dev
+    if (!origin || origin.startsWith('http://localhost')) return callback(null, true);
+    // Allow all Vercel preview and production URLs
+    if (/^https:\/\/.*vercel\.app$/.test(origin)) return callback(null, true);
+    // Otherwise, block
+    return callback(new Error('Not allowed by CORS'));
+  },
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
