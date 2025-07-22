@@ -39,10 +39,12 @@ export const evaluateResumeWithAI = async (job, resume) => {
           writer.on('error', reject);
         });
         resumePath = tempFilePath;
+        console.log('Downloaded resume file size:', fs.statSync(resumePath).size);
       } else {
         if (!fs.existsSync(resumePath)) {
           throw new Error('Resume file not found');
         }
+        console.log('Local resume file size:', fs.statSync(resumePath).size);
       }
       console.log('Resume path being sent to FastAPI:', resumePath);
     } catch (fileError) {
