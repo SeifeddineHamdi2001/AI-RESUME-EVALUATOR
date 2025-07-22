@@ -301,8 +301,8 @@ export default function JobApplication() {
       {/* Upload Modal */}
       {showUploadModal && (
         <div className="modal" onClick={() => setShowUploadModal(false)}>
-          <div className="modal-content" style={{ width: '400px' }} onClick={e => e.stopPropagation()}>
-            <button style={{ float: 'right' }} onClick={() => setShowUploadModal(false)}>&times;</button>
+          <div className="modal-content upload-modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={() => setShowUploadModal(false)}>&times;</button>
             <h3>Upload Resume (PDF)</h3>
             <input
               type="file"
@@ -313,7 +313,7 @@ export default function JobApplication() {
             {uploadedFile && (
               <div className="upload-preview">
                 <p>Selected: {uploadedFile.name}</p>
-                <button onClick={uploadNewResume} disabled={loading} className="btn btn-primary" style={{ marginTop: 8 }}>
+                <button onClick={uploadNewResume} disabled={loading} className="btn btn-primary upload-btn">
                   {loading ? 'Uploading...' : 'Upload Resume'}
                 </button>
               </div>
@@ -325,13 +325,13 @@ export default function JobApplication() {
       {/* PDF View Modal */}
       {showPdfModal && (
         <div className="modal" onClick={() => setShowPdfModal(false)}>
-          <div className="modal-content" style={{ width: '80vw', height: '80vh', maxWidth: '1000px', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
-            <button style={{ alignSelf: 'flex-end', marginBottom: 8 }} onClick={() => setShowPdfModal(false)}>&times;</button>
+          <div className="modal-content large-modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={() => setShowPdfModal(false)}>&times;</button>
             <iframe
               src={pdfUrl}
               width="100%"
               height="100%"
-              style={{ flex: 1, border: 'none' }}
+              className="pdf-iframe"
               title="Resume PDF"
             />
           </div>
