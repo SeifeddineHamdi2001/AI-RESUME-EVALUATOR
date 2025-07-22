@@ -47,6 +47,11 @@ export default function JobApplication() {
   const totalPages = Math.ceil(userResumes.length / ITEMS_PER_PAGE);
   const paginatedResumes = userResumes.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
+  // Modal state
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  const [pdfUrl, setPdfUrl] = useState("");
+
   // Get job data from navigation state or URL params
   useEffect(() => {
     if (location.state?.job) {
@@ -211,6 +216,12 @@ export default function JobApplication() {
     }
   };
 
+  // Handle view PDF
+  const handleViewPdf = (url) => {
+    setPdfUrl(url);
+    setShowPdfModal(true);
+  };
+
   // Render resume selection step
   const renderResumeSelection = () => (
     <div className="resume-selection">
@@ -233,6 +244,14 @@ export default function JobApplication() {
                   >
                     <h4>{resume.originalName}</h4>
                     <p>Uploaded: {new Date(resume.uploadDate).toLocaleDateString()}</p>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      style={{ marginTop: 8 }}
+                      onClick={e => { e.stopPropagation(); handleViewPdf(resume.filePath); }}
+                    >
+                      View
+                    </button>
                   </div>
                 ))}
               </div>
@@ -258,20 +277,9 @@ export default function JobApplication() {
 
         <div className="upload-resume">
           <h3>Upload New Resume</h3>
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={handleFileUpload}
-            className="file-input"
-          />
-          {uploadedFile && (
-            <div className="upload-preview">
-              <p>Selected: {uploadedFile.name}</p>
-              <button onClick={uploadNewResume} disabled={loading}>
-                {loading ? 'Uploading...' : 'Upload Resume'}
-              </button>
-            </div>
-          )}
+          <button className="btn btn-primary" onClick={() => setShowUploadModal(true)}>
+            Upload New
+          </button>
         </div>
       </div>
 
@@ -289,6 +297,46 @@ export default function JobApplication() {
           {loading ? 'Evaluating...' : 'Evaluate Resume'}
         </button>
       </div>
+
+      {/* Upload Modal */}
+      {showUploadModal && (
+        <div className="modal" onClick={() => setShowUploadModal(false)}>
+          <div className="modal-content" style={{ width: '400px' }} onClick={e => e.stopPropagation()}>
+            <button style={{ float: 'right' }} onClick={() => setShowUploadModal(false)}>&times;</button>
+            <h3>Upload Resume (PDF)</h3>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleFileUpload}
+              className="file-input"
+            />
+            {uploadedFile && (
+              <div className="upload-preview">
+                <p>Selected: {uploadedFile.name}</p>
+                <button onClick={uploadNewResume} disabled={loading} className="btn btn-primary" style={{ marginTop: 8 }}>
+                  {loading ? 'Uploading...' : 'Upload Resume'}
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* PDF View Modal */}
+      {showPdfModal && (
+        <div className="modal" onClick={() => setShowPdfModal(false)}>
+          <div className="modal-content" style={{ width: '80vw', height: '80vh', maxWidth: '1000px', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }} onClick={e => e.stopPropagation()}>
+            <button style={{ alignSelf: 'flex-end', marginBottom: 8 }} onClick={() => setShowPdfModal(false)}>&times;</button>
+            <iframe
+              src={pdfUrl}
+              width="100%"
+              height="100%"
+              style={{ flex: 1, border: 'none' }}
+              title="Resume PDF"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 
